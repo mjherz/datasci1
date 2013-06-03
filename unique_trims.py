@@ -14,13 +14,11 @@ def mapper(record):
     # key: document identifier
     # value: document contents
 #   key = record[0]
-    document_id = record[0]
-    value = record[1]
-    words = value.split()
+#   value = record[1]
+    value = record[1][:-10]
 #   for w in words:
-    for key in words:
-#     mr.emit_intermediate(w,1)
-      mr.emit_intermediate(key,document_id)
+#     mr.emit_intermediate(w, 1)
+    mr.emit_intermediate(value, 1)
 
 def reducer(key, list_of_values):
     # key: word
@@ -29,8 +27,7 @@ def reducer(key, list_of_values):
 #   for v in list_of_values:
 #     total += v
 #   mr.emit((key, total))
-    list_of_values = list(set(list_of_values))
-    mr.emit((key, list_of_values))
+    mr.emit((key))
 
 # Do not modify below this line
 # =============================

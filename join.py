@@ -36,10 +36,18 @@ def reducer(key, list_of_values):
         line_item_list.append(list_of_values[i])
       else:
         order_list.append(list_of_values[i])
-    joinstr=r'", "'
+#   joinstr=r'\", \"'
     for i in range(len(order_list)):
       for j in range(len(line_item_list)):
-        returnlist=["order",key,joinstr.join(order_list[i][1]),"line_item",key,joinstr.join(line_item_list[j][1])]
+        returnlist=["order",key]
+        for k in range(len(order_list[i][1])):
+          returnlist.append(order_list[i][1][k])
+        returnlist.append("line_item")
+        returnlist.append(key)
+        for k in range(len(line_item_list[j][1])):
+          returnlist.append(line_item_list[j][1][k])
+#       returnlist=["order",key,joinstr.join(order_list[i][1]),"line_item",key,joinstr.join(line_item_list[j][1])]
+#       returnlist=["order",key,joinstr.join(order_list[i][1]),"line_item",key,joinstr.join(line_item_list[j][1])]
 #       returnlist=["order",key,"\', \'".join(order_list[i][1]),"line_item",key,', '.join(line_item_list[j][1])]
         mr.emit(returnlist)
 
